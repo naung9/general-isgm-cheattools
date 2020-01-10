@@ -77,23 +77,35 @@ def update_attendance(user_name: str, password: str, emp_id: int, from_date: str
     print('-------------- End ----------------')
 
 
+def date_validate(date_text):
+    try:
+        datetime.strptime(date_text, '%Y-%m-%d')
+        return True
+    except ValueError:
+        # raise
+        print("Please check your date format. Date format must be 'yyyy-MM-dd' format.")
+        exit()
+
+
 if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.read('config.ini')
-    userName_param = config['DEFAULT']['username']
-    empId_param = config['DEFAULT']['empid']
-    from_date_param = config['DEFAULT']['from_date']
-    to_date_param = config['DEFAULT']['to_date']
-    readOnly_param = config['DEFAULT']['readonly']
-    password_param = config['DEFAULT']['password']
+    userName_param = config['DEFAULT']['username'] if config.has_option('DEFAULT', 'username') else ""
+
+    empId_param = config['DEFAULT']['empid'] if config.has_option('DEFAULT', 'empid') else ""
+    from_date_param = config['DEFAULT']['from_date'] if config.has_option('DEFAULT', 'from_date') else ""
+    to_date_param = config['DEFAULT']['to_date'] if config.has_option('DEFAULT', 'to_date') else ""
+    readOnly_param = config['DEFAULT']['readonly'] if config.has_option('DEFAULT', 'readonly') else ""
+    password_param = config['DEFAULT']['password'] if config.has_option('DEFAULT', 'password') else ""
     print(userName_param)
     print(empId_param)
     print(from_date_param)
     print(to_date_param)
     print(readOnly_param)
     print(password_param)
-    if str(userName_param) != "" and str(empId_param) != "" and str(from_date_param) != ""\
-            and str(to_date_param) != "" and str(readOnly_param) != "" and str(password_param) != "":
+    if str(userName_param) != "" and str(empId_param) != "" and str(from_date_param) != "" \
+            and str(to_date_param) != "" and str(readOnly_param) != "" and str(password_param) != "" \
+            and empId_param.isdigit() and date_validate(from_date_param) and date_validate(to_date_param):
         update_attendance(str(userName_param), str(password_param), int(empId_param), str(from_date_param),
                           str(to_date_param), str(readOnly_param).lower() == 'true')
     else:
