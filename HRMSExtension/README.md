@@ -18,17 +18,17 @@
 ## Install
 Clone this repository first with `git clone`
 ### Google Chrome
-1. Go to Settings > Extensions or just write `chrome://extensions/` in address bar
+1. Go to Settings > Extensions or just enter `chrome://extensions/` in address bar
 2. Enable Developer Mode
 3. Load Unpacked and choose `cloned_repo_path/HRMSExtension/`
 ### Firefox
-1. In the address bar, type `about:debugging` and enter
+1. In the address bar, enter `about:debugging`
 2. Click `This Firefox` link under the `Setup`
 3. Click `Load Temporary Addon` and choose `cloned_repo_path/HRMSExtension/manifest.json`
 
 ## How to use
 1. Fill in the necessary data and click submit.
-2. It is recommended to use `Read Only` mode and log level `Debug` to view the read results and check if the results are as you desired.
+2. It is recommended to use `Read Only` mode and log level `Debug` at first to view the read results and check if the results are as you desired.
 3. To actually make changes to your attendance data, just do step 1 and uncheck the `Read Only` checkbox.
 4. For users who are working from home partially or fully, it is necessary to check `Worked From Home` checkbox.
 5. If you have taken any leave (full or half), please add your leave dates so that the plugin will skip making changes to those dates
