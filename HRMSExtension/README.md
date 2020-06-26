@@ -18,11 +18,11 @@
 ## Install
 Clone this repository first with `git clone`
 ### Google Chrome
-1. Go to Settings > Extensions or just write `chrome://extensions/` in address bar
+1. Go to Settings > Extensions or just enter `chrome://extensions/` in address bar
 2. Enable Developer Mode
 3. Load Unpacked and choose `cloned_repo_path/HRMSExtension/`
 ### Firefox
-1. In the address bar, type `about:debugging` and enter
+1. In the address bar, enter `about:debugging`
 2. Click `This Firefox` link under the `Setup`
 3. Click `Load Temporary Addon` and choose `cloned_repo_path/HRMSExtension/manifest.json`
 
