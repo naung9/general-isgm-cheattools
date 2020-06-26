@@ -5,12 +5,14 @@ import argparse
 
 
 def update_attendance(user_name: str, password: str, emp_id: int, from_date: str, to_date: str, read_only: bool):
+    print("read only ? {}".format(read_only))
     url = 'http://hrms.isgm.site'
     db_name = 'Attendance_V2'
     attendance_model = 'manual.attendance'
     employee = 'hr.employee'
     common = client.ServerProxy('{}/xmlrpc/2/common'.format(url))
     uid = common.authenticate(db_name, user_name, password, {})
+    print('Auth ID : {}'.format(uid))
     models = client.ServerProxy('{}/xmlrpc/2/object'.format(url))
     my_attendances = models.execute_kw(db_name, uid, password, attendance_model, 'search_read',
                                       [[['emp_id', '=', emp_id], ['attendance_date', '>=', from_date], ['attendance_date', '<=', to_date]]])
@@ -70,8 +72,9 @@ def update_attendance(user_name: str, password: str, emp_id: int, from_date: str
                     'reason_in': 'normal',
                     'reason_out': 'normal',
                 }
-                print(models.execute_kw(db_name, uid, password, attendance_model,
-                                        'write', [[attendance['id']], attendance_obj]))
+                print(attendance_obj)
+#                print(models.execute_kw(db_name, uid, password, attendance_model,
+#                                        'write', [[attendance['id']], attendance_obj]))
     print('-------------- End ----------------')
 
 
@@ -81,9 +84,8 @@ if __name__ == '__main__':
     parser.add_argument('--empid', help="Employee ID Of HRMS", type=int, default=1273)
     parser.add_argument('--from_date', required=True, help='From Date in yyyy-MM-dd format', type=str)
     parser.add_argument('--to_date', default=str(datetime.now().date()), help='To Date in yyyy-MM-dd format', type=str)
-    parser.add_argument('--readonly', help="To Enable Readonly Mode. Default is true", choices=['True', 'False'], type=str, default='true')
+    parser.add_argument('--readonly', help="To Enable Readonly Mode. Default is true", choices=['True', 'False', 'true', 'false', 'TRUE', 'FALSE'], type=str, default='true')
     pwd = getpass(prompt='Type Password')
     args = parser.parse_args()
     print(args)
-    print(bool(args.readonly))
     update_attendance(args.username, pwd, args.empid, args.from_date, args.to_date, args.readonly.lower() == 'true')

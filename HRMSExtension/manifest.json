@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "HRMS Submit Tool",
+  "version": "1.0",
+
+  "description": "A tool for easy submitting ISGM HRMS Data.",
+
+  "icons": {
+    "48": "icons/isgm-icon.png"
+  },
+
+  "permissions": [
+    "*://hrms.isgm.site/*",
+    "webRequest"
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/isgm-icon.png",
+    "default_title": "HRMS Submit Tool",
+    "default_popup": "popup/hrms_submit_tool.html"
+  }
+
+}

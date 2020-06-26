@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HRMS Submit Tool</title>
+    <script src="http_code.jquery.com_jquery-3.5.1.js"></script>
+    <script src="http_cdnjs.cloudflare.com_ajax_libs_jquery-xmlrpc_0.4.3_jquery.xmlrpc.js"></script>
+</head>
+<style>
+    .console table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .console td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+<body style="width: 450px; height: 800px; overflow: scroll;">
+    <form id="submit" style="display: block">
+        <table>
+            <tr>
+                <td>User Name</td>
+                <td> : <input type="text" id="uName" required="required"></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td> : <input type="password" id="password" required="required"></td>
+            </tr>
+            <tr>
+                <td>Employee ID</td>
+                <td> : <input type="number" id="empId" required="required" placeholder="Employee ID From HRMS System. Not starting with 00"></td>
+            </tr>
+            <tr>
+                <td>From</td>
+                <td> : <input type="date" id="fromDate" required="required"></td>
+            </tr>
+            <tr>
+                <td>To</td>
+                <td> : <input type="date" id="toDate" required="required"></td>
+            </tr>
+            <tr>
+                <td>Worked From Home?</td>
+                <td><input type="checkbox" id="hasWFH"></td>
+            </tr>
+            <tr id="leaves">
+                <td colspan="2"><button id="addLeaveBtn" type="button">Add Leaves</button></td>
+            </tr>
+            <tr>
+                <td>Desired Checkin</td>
+                <td> : <input type="time" id="checkIn" value="08:30:00" required="required"></td>
+            </tr>
+            <tr>
+                <td>Desired Checkout</td>
+                <td> : <input type="time" id="checkOut" value="17:30:00" required="required"></td>
+            </tr>
+            <tr>
+                <td>Read Only</td>
+                <td> : <input type="checkbox" id="readOnly" checked="checked"></td>
+            </tr>
+            <tr>
+                <td>Log Level</td>
+                <td> : <select id="logLevel" required="required">
+                        <option value="all">All</option>
+                        <option value="debug">Debug</option>
+                        <option value="info" selected="selected">Info</option>
+                        <option value="warn">Warn</option>
+                        <option value="error">Error</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+                <td><button id="clear" type="button">Clear Logs</button></td>
+            </tr>
+        </table>
+        <label for="consoleOut">Read Results</label><br/>
+        <div class="console" id="consoleOut">
+
+        </div>
+    </form>
+    <script src="hrms_tool.js"></script>
+</body>
+</html>
