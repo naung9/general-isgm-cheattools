@@ -33,5 +33,5 @@ Clone this repository first with `git clone`
 4. For users who are working from home partially or fully, it is necessary to check `Worked From Home` checkbox.
 5. If you have taken any leave (full or half), please add your leave dates so that the plugin will skip making changes to those dates
 6. For public holidays, please add the dates as leaves so the plugin will not make any changes to them.
-7. Be very careful about `Employee ID` filed. It does not mean your employee ID which usually starts with 00. e.g 000202. It means the literal primary key from employee table.
+7. Be very careful about `Employee ID` field. It does not mean your employee ID which usually starts with 00. e.g 000202. It means the literal primary key from employee table.
 8. You can obtain your employee id by visiting to Employee tab at [HRMS](http://hrms.isgm.site), find your employee info, click your info card and when you are at your employee detail page, you can get your id at the address bar with the key `id`
