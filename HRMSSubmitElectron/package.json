@@ -5,7 +5,9 @@
   "main": "src/app.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --linux snap"
+    "dist-snap": "electron-builder --linux snap",
+    "dist-deb": "electron-builder --linux deb",
+    "dist-win": "electron-builder --win msi"
   },
   "keywords": [
     "Electron",
@@ -18,5 +20,6 @@
   "devDependencies": {
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0"
-  }
+  },
+  "homepage": ""
 }
