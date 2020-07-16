@@ -15,11 +15,15 @@
     "HRMS",
     "Attendance"
   ],
-  "author": "Hein Naung Nine",
+  "author": {
+    "name": "Hein Naung Nine",
+    "email": "naung.nine@gmail.com",
+    "url": "https://github.com/naung9"
+  },
   "license": "Apache-2.0",
   "devDependencies": {
     "electron": "^9.0.5",
     "electron-builder": "^22.7.0"
   },
-  "homepage": ""
+  "homepage": "https://github.com/naung9/general-isgm-cheattools/tree/master/HRMSSubmitElectron"
 }

@@ -1,4 +1,4 @@
-# HRMS Submit Tool Browser Extension
+# HRMS Submit Tool Electron Application
 
 ## Disclaimer
 * This application can only be used at ISGM Office's network `Sijimusho`
