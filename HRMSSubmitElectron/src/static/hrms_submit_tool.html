@@ -48,16 +48,20 @@
                 <td>Worked From Home?</td>
                 <td><input type="checkbox" id="hasWFH"></td>
             </tr>
+            <tr>
+                <td>Bypass 15 Min Check?</td>
+                <td><input type="checkbox" id="bypass"></td>
+            </tr>
             <tr id="leaves">
                 <td colspan="2"><button id="addLeaveBtn" type="button">Add Leaves</button></td>
             </tr>
             <tr>
                 <td>Desired Checkin</td>
-                <td> : <input type="time" id="checkIn" value="08:30:00" required="required"></td>
+                <td> : <input type="time" id="checkIn" value="09:00:00" required="required"></td>
             </tr>
             <tr>
                 <td>Desired Checkout</td>
-                <td> : <input type="time" id="checkOut" value="17:30:00" required="required"></td>
+                <td> : <input type="time" id="checkOut" value="18:00:00" required="required"></td>
             </tr>
             <tr>
                 <td>Read Only</td>
@@ -73,6 +77,25 @@
                         <option value="error">Error</option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="button" id="advancedModeBtn">Show Advanced</button></td>
+            </tr>
+            <tr class="advanced" style="display: none">
+                <td>Url</td>
+                <td> : <input type="text" id="url" required="required" value="http://hrms.isgm.site"></td>
+            </tr>
+            <tr class="advanced" style="display: none">
+                <td>Database Name</td>
+                <td> : <input type="text" id="dbName" required="required" value="Attendance_V2"></td>
+            </tr>
+            <tr class="advanced" style="display: none">
+                <td>Attendance Model</td>
+                <td> : <input type="text" id="attendanceModel" required="required" value="manual.attendance"></td>
+            </tr>
+            <tr class="advanced" style="display: none">
+                <td>Project ID</td>
+                <td> : <input type="number" id="projectId" required="required" value="180"></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Submit"></td>
