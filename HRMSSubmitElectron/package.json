@@ -1,0 +1,22 @@
+{
+  "name": "hrms-submit-tool",
+  "version": "1.0.2",
+  "description": "Application For Submitting HRMS Attendance",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --linux snap"
+  },
+  "keywords": [
+    "Electron",
+    "ISGM",
+    "HRMS",
+    "Attendance"
+  ],
+  "author": "Hein Naung Nine",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^9.0.5",
+    "electron-builder": "^22.7.0"
+  }
+}
