@@ -9,4 +9,4 @@
 ## Contribution Guide
 1. Clone this repository
 2. Run `npm install` or `yarn install`
-3. To run the project, > npm start
+3. To run the project, run `npm start` or `yarn start`
