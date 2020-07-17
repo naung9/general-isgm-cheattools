@@ -136,10 +136,7 @@ $('#logLevel').change((e) => {
     logger.logLevel = $('#logLevel').val();
 });
 
-function submitAttendance(userName, password, empID, fromDate, toDate, desiredCheckIn, desiredCheckOut, readOnly = true, leaveDays, hasWFH = false, url = 'http://hrms.isgm.site') {
-    let dbName = 'Attendance_V2';
-    let attendanceModel = 'manual.attendance';
-    let employee = 'hr.employee';
+function submitAttendance(userName, password, empID, fromDate, toDate, desiredCheckIn, desiredCheckOut, readOnly, leaveDays, hasWFH, bypass, url, dbName, attendanceModel, projectId) {
     let [checkInHours, checkInMinutes] = desiredCheckIn.split(':').map(val => parseInt(val));
     let [checkOutHours, checkOutMinutes] = desiredCheckOut.split(':').map(val => parseInt(val));
     logger.debug(checkInHours, checkInMinutes, checkOutHours, checkOutMinutes);
@@ -187,48 +184,50 @@ function submitAttendance(userName, password, empID, fromDate, toDate, desiredCh
                                 sign_in_time_dt.setTime(sign_in_time_dt.getTime() + time_delta);
                                 let sign_in_minute = sign_in_time_dt.getMinutes();
                                 let sign_in_hour = sign_in_time_dt.getHours();
-                                if (getTotalMinutes(sign_in_hour, sign_in_minute) >= getTotalMinutes(checkInHours, checkInMinutes)) {
+                                let to_save_in_minute = 0;
+                                if (!bypass && getTotalMinutes(sign_in_hour, sign_in_minute) >= getTotalMinutes(checkInHours, checkInMinutes)) {
                                     if (sign_in_minute > 0)
-                                        sign_in_minute = 15;
+                                        to_save_in_minute = 15;
                                     if (sign_in_minute > 15)
-                                        sign_in_minute = 30;
+                                        to_save_in_minute = 30;
                                     if (sign_in_minute > 30)
-                                        sign_in_minute = 45;
+                                        to_save_in_minute = 45;
                                     if (sign_in_minute > 45) {
                                         sign_in_hour += 1;
-                                        sign_in_minute = 0;
+                                        to_save_in_minute = 0;
                                     }
                                 } else {
                                     sign_in_hour = checkInHours;
-                                    sign_in_minute = checkInMinutes;
+                                    to_save_in_minute = checkInMinutes;
                                 }
                                 let updated_in_date = sign_in_time_dt;
                                 updated_in_date.setHours(sign_in_hour);
-                                updated_in_date.setMinutes(sign_in_minute);
+                                updated_in_date.setMinutes(to_save_in_minute);
                                 updated_in_date.setSeconds(0);
 
                                 let sign_out_time_dt = new Date(sign_out_time);
                                 sign_out_time_dt.setTime(sign_out_time_dt.getTime() + time_delta);
                                 let sign_out_minute = sign_out_time_dt.getMinutes();
                                 let sign_out_hour = sign_out_time_dt.getHours();
-                                if (getTotalMinutes(sign_out_hour, sign_out_minute) <= getTotalMinutes(checkOutHours, checkOutMinutes)) {
+                                let to_save_out_minute = 0;
+                                if (!bypass && getTotalMinutes(sign_out_hour, sign_out_minute) <= getTotalMinutes(checkOutHours, checkOutMinutes)) {
                                     if (sign_out_minute > 0)
-                                        sign_out_minute = 15;
+                                        to_save_out_minute = 15;
                                     if (sign_out_minute > 15)
-                                        sign_out_minute = 30;
+                                        to_save_out_minute = 30;
                                     if (sign_out_minute > 30)
-                                        sign_out_minute = 45;
+                                        to_save_out_minute = 45;
                                     if (sign_out_minute > 45) {
                                         sign_out_hour += 1;
-                                        sign_out_minute = 0;
+                                        to_save_out_minute = 0;
                                     }
                                 } else {
                                     sign_out_hour = checkOutHours;
-                                    sign_out_minute = checkOutMinutes;
+                                    to_save_out_minute = checkOutMinutes;
                                 }
                                 let updated_out_date = sign_out_time_dt;
                                 updated_out_date.setHours(sign_out_hour);
-                                updated_out_date.setMinutes(sign_out_minute);
+                                updated_out_date.setMinutes(to_save_out_minute);
                                 updated_out_date.setSeconds(0);
                                 let manual_in = new Date(updated_in_date - time_delta);
                                 let manual_out = new Date(updated_out_date - time_delta);
@@ -239,7 +238,7 @@ function submitAttendance(userName, password, empID, fromDate, toDate, desiredCh
                                     'manual_out': dateTimeFormatter(manual_out),
                                     'check_out_normal': true,
                                     'check_in_normal': true,
-                                    'project_id': 180,
+                                    'project_id': projectId,
                                     'reason_in': 'normal',
                                     'reason_out': 'normal',
                                 };
@@ -257,7 +256,7 @@ function submitAttendance(userName, password, empID, fromDate, toDate, desiredCh
                                         'manual_out': dateTimeFormatter(manualOutDate),
                                         'check_out_normal': true,
                                         'check_in_normal': true,
-                                        'project_id': 180,
+                                        'project_id': projectId,
                                         'reason_in': 'normal',
                                         'reason_out': 'normal',
                                     };
@@ -296,6 +295,18 @@ function isWeekend(date) {
     return date.getDay() === 6 || date.getDay() === 0;
 }
 
+let advancedMode = false;
+
+function toggleAdvancedMode(){
+    advancedMode = !advancedMode;
+    $('.advanced').css('display', advancedMode ? '' : 'none');
+    $('#advancedModeBtn').text(`${advancedMode ? 'Hide' : 'Show'} Advanced`);
+}
+
+$('#advancedModeBtn').click(e => {
+    toggleAdvancedMode();
+});
+
 function dateTimeFormatter(date) {
     let hour = date.getHours();
     let minute = date.getMinutes();
@@ -312,7 +323,7 @@ $('#submit').submit((e) => {
     $('.leave').each(function () {
         leaves.push($(this).val());
     });
-    submitAttendance($('#uName').val(), $('#password').val(), $('#empId').val(), $('#fromDate').val(), $('#toDate').val(), $('#checkIn').val(), $('#checkOut').val(), $('#readOnly').is(':checked'), leaves, $('#hasWFH').is(':checked'));
+    submitAttendance($('#uName').val(), $('#password').val(), $('#empId').val(), $('#fromDate').val(), $('#toDate').val(), $('#checkIn').val(), $('#checkOut').val(), $('#readOnly').is(':checked'), leaves, $('#hasWFH').is(':checked'), $('#bypass').is(':checked'), $('#url').val(), $('#dbName').val(), $('#attendanceModel').val(), parseInt($('#projectId').val()));
 });
 let lastLeaveNo = 0;
 $('#addLeaveBtn').click(e => {
