@@ -4,7 +4,7 @@
 2. If you need to depend on external libraries e.g Bootstrap, please download the files and copy them into `popup` folder.
 3. Make changes only to `popup` or `icons` folder. Please do not touch manifest.json.
 ## Requirements
-1. Just a browser
+1. Just Google Chrome or Firefox
 ## Contribution Guide
 Clone this repository
 ### Google Chrome
