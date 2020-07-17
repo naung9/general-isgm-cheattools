@@ -2,7 +2,7 @@
 
 This repo is intended to collect cheat scripts that help us to make things easier at ISGM Office. Please use it according to your own risk.
 
-# Disclaimer
+# DISCLAIMER !!!
 * This application can only be used at ISGM Office's network `Sijimusho`
 * If you are using write mode, which is the main point of this extension, be careful to input the correct and valid data.
 * We will not hold any responsibility for any critical errors and so use it at your own risk
