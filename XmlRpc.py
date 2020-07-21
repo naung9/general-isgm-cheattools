@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import argparse
 
 
-def update_attendance(user_name: str, password: str, emp_id: int, from_date: str, to_date: str, read_only: bool):
+def update_attendance(user_name: str, password: str, emp_id: int, from_date: str, to_date: str, read_only: bool, url: str, db_name: str, attendance_model: str):
     print("read only ? {}".format(read_only))
     url = 'http://hrms.isgm.site'
     db_name = 'Attendance_V2'

@@ -243,7 +243,7 @@ function submitAttendance(userName, password, empID, fromDate, toDate, desiredCh
                                     'reason_out': 'normal',
                                 };
                                 saveToXMLRPC([attendance['id']], attendance_obj, url, dbName, response[0], password, attendanceModel, successCallback, errorCallback);
-                            }else{
+                            } else {
                                 if (hasWFH) {
                                     const checkInDate = new Date(`${attendance['attendance_date']} ${desiredCheckIn}`);
                                     const checkOutDate = new Date(`${attendance['attendance_date']} ${desiredCheckOut}`);
@@ -297,7 +297,7 @@ function isWeekend(date) {
 
 let advancedMode = false;
 
-function toggleAdvancedMode(){
+function toggleAdvancedMode() {
     advancedMode = !advancedMode;
     $('.advanced').css('display', advancedMode ? '' : 'none');
     $('#advancedModeBtn').text(`${advancedMode ? 'Hide' : 'Show'} Advanced`);
@@ -327,11 +327,11 @@ $('#submit').submit((e) => {
 });
 let lastLeaveNo = 0;
 $('#addLeaveBtn').click(e => {
-    $(`<tr id="leaveRow${lastLeaveNo}"><td><input class="leave" id="leave${lastLeaveNo}" type="date"></td><td><button type="button" class="leaveBtn" id="${lastLeaveNo}">Remove</button></td></tr>`).insertAfter('#leaves');
+    $(`<tr id="leaveRow${lastLeaveNo}"><td><input class="leave form-control" id="leave${lastLeaveNo}" type="date"></td><td><button type="button" class="leaveBtn btn btn-outline-danger btn-sm" id="${lastLeaveNo}">Remove</button></td></tr>`).insertAfter('#leaves');
     lastLeaveNo++;
 });
 document.body.addEventListener('click', function (e) {
-    if (e.target.className === 'leaveBtn') {
+    if (e.target.className.toString().includes('leaveBtn')) {
         $(`#leaveRow${e.target.id}`).remove();
     }
-})
+});

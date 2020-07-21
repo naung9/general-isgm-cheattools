@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>HRMS Submit Tool</title>
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <link rel="stylesheet" href="bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="custom_css/custom_checkbox.css">
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
     <script src="http_code.jquery.com_jquery-3.5.1.js"></script>
     <script src="http_cdnjs.cloudflare.com_ajax_libs_jquery-xmlrpc_0.4.3_jquery.xmlrpc.js"></script>
+    <script src="bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
     <script>if (window.module) module = window.module;</script>
 </head>
 <style>
+    .console {
+        background-color: #7d7d7da3;
+        border: 1px solid wheat;
+    }
+
     .console table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -20,93 +31,140 @@
         text-align: left;
         padding: 8px;
     }
-</style>
-<body style="width: 400px; height: 800px; overflow: scroll;">
-    <form id="submit" style="display: block">
-        <table>
-            <tr>
-                <td>User Name</td>
-                <td> : <input type="text" id="uName" required="required"></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td> : <input type="password" id="password" required="required"></td>
-            </tr>
-            <tr>
-                <td>Employee ID</td>
-                <td> : <input type="number" id="empId" required="required" placeholder="Employee ID From HRMS System. Not starting with 00"></td>
-            </tr>
-            <tr>
-                <td>From</td>
-                <td> : <input type="date" id="fromDate" required="required"></td>
-            </tr>
-            <tr>
-                <td>To</td>
-                <td> : <input type="date" id="toDate" required="required"></td>
-            </tr>
-            <tr>
-                <td>Worked From Home?</td>
-                <td><input type="checkbox" id="hasWFH"></td>
-            </tr>
-            <tr>
-                <td>Bypass 15 Min Check?</td>
-                <td><input type="checkbox" id="bypass"></td>
-            </tr>
-            <tr id="leaves">
-                <td colspan="2"><button id="addLeaveBtn" type="button">Add Leaves</button></td>
-            </tr>
-            <tr>
-                <td>Desired Checkin</td>
-                <td> : <input type="time" id="checkIn" value="09:00:00" required="required"></td>
-            </tr>
-            <tr>
-                <td>Desired Checkout</td>
-                <td> : <input type="time" id="checkOut" value="18:00:00" required="required"></td>
-            </tr>
-            <tr>
-                <td>Read Only</td>
-                <td> : <input type="checkbox" id="readOnly" checked="checked"></td>
-            </tr>
-            <tr>
-                <td>Log Level</td>
-                <td> : <select id="logLevel" required="required">
-                        <option value="all">All</option>
-                        <option value="debug">Debug</option>
-                        <option value="info" selected="selected">Info</option>
-                        <option value="warn">Warn</option>
-                        <option value="error">Error</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"><button type="button" id="advancedModeBtn">Show Advanced</button></td>
-            </tr>
-            <tr class="advanced" style="display: none">
-                <td>Url</td>
-                <td> : <input type="text" id="url" required="required" value="http://hrms.isgm.site"></td>
-            </tr>
-            <tr class="advanced" style="display: none">
-                <td>Database Name</td>
-                <td> : <input type="text" id="dbName" required="required" value="Attendance_V2"></td>
-            </tr>
-            <tr class="advanced" style="display: none">
-                <td>Attendance Model</td>
-                <td> : <input type="text" id="attendanceModel" required="required" value="manual.attendance"></td>
-            </tr>
-            <tr class="advanced" style="display: none">
-                <td>Project ID</td>
-                <td> : <input type="number" id="projectId" required="required" value="180"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Submit"></td>
-                <td><button id="clear" type="button">Clear Logs</button></td>
-            </tr>
-        </table>
-        <label for="consoleOut">Read Results</label><br/>
-        <div class="console" id="consoleOut">
 
+    .advanced {
+        background-color: #b78e488f;
+    }
+
+    .table td, .table th {
+        padding: 0.5rem !important;
+    }
+
+    .form-control {
+        height: calc(1.5em + .5rem + 2px) !important;
+    }
+
+    .table{
+        table-layout: fixed;
+    }
+</style>
+<body class="bg-dark" style="overflow: auto;width: 400px; height:800px;">
+<form id="submit" style="display: block">
+    <div class="container-fluid">
+        <div class="form-group">
+            <div class="form-row">
+                <table class="table table-dark">
+                    <tr>
+                        <td>User Name</td>
+                        <td><input type="text" class="form-control" id="uName" required="required"></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" class="form-control" id="password" required="required"></td>
+                    </tr>
+                    <tr>
+                        <td>Employee ID</td>
+                        <td><input type="number" class="form-control" id="empId" required="required"
+                                   placeholder="Employee ID From HRMS System. Not starting with 00"></td>
+                    </tr>
+                    <tr>
+                        <td>From</td>
+                        <td><input type="date" class="form-control" id="fromDate" required="required"></td>
+                    </tr>
+                    <tr>
+                        <td>To</td>
+                        <td><input type="date" class="form-control" id="toDate" required="required"></td>
+                    </tr>
+                    <tr>
+                        <td>Worked From Home?</td>
+                        <td><label class="checkbox-label"><input type="checkbox" id="hasWFH"><span
+                                class="checkbox-custom"></span>
+                        </label></td>
+                    </tr>
+                    <tr>
+                        <td>Bypass 15 Min Check?</td>
+                        <td><label class="checkbox-label"><input type="checkbox" id="bypass"><span
+                                class="checkbox-custom"></span>
+                        </label></td>
+                    </tr>
+                    <tr id="leaves">
+                        <td colspan="2">
+                            <button id="addLeaveBtn" class="btn btn-outline-info btn-sm" type="button">Add Leaves
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Desired Checkin</td>
+                        <td><input type="time" class="form-control" id="checkIn" value="09:00:00" required="required">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Desired Checkout</td>
+                        <td><input type="time" class="form-control" id="checkOut" value="18:00:00" required="required">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Read Only</td>
+                        <td><label class="checkbox-label"><input type="checkbox" id="readOnly" checked="checked"><span
+                                class="checkbox-custom"></span>
+                        </label></td>
+                    </tr>
+                    <tr>
+                        <td>Log Level</td>
+                        <td><select class="form-control" id="logLevel" required="required">
+                            <option value="all">All</option>
+                            <option value="debug">Debug</option>
+                            <option value="info" selected="selected">Info</option>
+                            <option value="warn">Warn</option>
+                            <option value="error">Error</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="button" class="btn btn-outline-info btn-sm" id="advancedModeBtn">Show Advanced
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="advanced" style="display: none">
+                        <td>Url</td>
+                        <td><input type="text" class="form-control" id="url" required="required"
+                                   value="http://hrms.isgm.site">
+                        </td>
+                    </tr>
+                    <tr class="advanced" style="display: none">
+                        <td>Database Name</td>
+                        <td><input type="text" class="form-control" id="dbName" required="required"
+                                   value="Attendance_V2">
+                        </td>
+                    </tr>
+                    <tr class="advanced" style="display: none">
+                        <td>Attendance Model</td>
+                        <td><input type="text" class="form-control" id="attendanceModel" required="required"
+                                   value="manual.attendance"></td>
+                    </tr>
+                    <tr class="advanced" style="display: none">
+                        <td>Project ID</td>
+                        <td><input type="number" class="form-control" id="projectId" required="required" value="180">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" class="btn btn-success" value="Submit"></td>
+                        <td>
+                            <button id="clear" type="button" class="btn btn-warning">Clear Logs</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-row">
+                <label class="text-white" for="consoleOut">Read Results</label>
+            </div>
+            <div class="console form-row" id="consoleOut">
+
+            </div>
         </div>
-    </form>
-    <script src="hrms_tool.js"></script>
+    </div>
+</form>
+<script src="hrms_tool.js"></script>
 </body>
 </html>
