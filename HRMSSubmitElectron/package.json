@@ -22,7 +22,7 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "electron": "^9.0.5",
+    "electron": "^11.5.0",
     "electron-builder": "^22.7.0"
   },
   "homepage": "https://github.com/naung9/general-isgm-cheattools/tree/master/HRMSSubmitElectron"
